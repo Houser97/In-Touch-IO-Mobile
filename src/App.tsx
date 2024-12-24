@@ -1,10 +1,12 @@
-import { SafeAreaView, Text } from "react-native"
-import { HomeScreen } from "./presentation/screens/HomeScreen"
+import 'react-native-gesture-handler';
+
+import { StackNavigator } from './presentation/navigator/StackNavigator';
+import { ThemeContextProvider } from './presentation/context/ThemeContext';
 
 export const App = () => {
   return(
-    <SafeAreaView style={{flex: 1}}>
-      <HomeScreen></HomeScreen>
-    </SafeAreaView>
+      <ThemeContextProvider>
+        <StackNavigator />
+      </ThemeContextProvider>
   )
 }
