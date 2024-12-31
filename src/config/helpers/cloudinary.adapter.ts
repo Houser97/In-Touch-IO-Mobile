@@ -1,7 +1,7 @@
 import axios from "axios";
 import { CustomError } from "../../infrastructure/errors/custom.error";
 
-const UPLOAD_PRESET = 'InTouch'; // Must be configured as unsigned
+const UPLOAD_PRESET = 'InTouch'; // Configurado como unsigned
 const CLOUD_NAME = 'dluwqcce9';
 
 const cloudinaryApi = axios.create({
@@ -9,13 +9,24 @@ const cloudinaryApi = axios.create({
 });
 
 export class ImageStorageAdapter {
-    static uploadImage = async (file: Blob) => {
+    static uploadImage = async (fileUri: string) => {
         const formData = new FormData();
-        formData.append('file', file);
+        
+        const file = {
+            uri: fileUri,
+            type: 'image/jpeg',
+            name: fileUri.split('/').pop(),
+        };
+
+        formData.append('file', file as any);
         formData.append('upload_preset', UPLOAD_PRESET);
 
         try {
-            const { data } = await cloudinaryApi.post('', formData);
+            const { data } = await cloudinaryApi.post('', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             const imageUrl = data.secure_url;
             const publicId = data.public_id;
             return { imageUrl, publicId };
