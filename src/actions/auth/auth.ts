@@ -2,14 +2,11 @@ import inTouchIoApi from "../../config/api/inTouchIoApi";
 import { UserMapper } from "../../infrastructure/mappers/user.mapper";
 
 export const authLogin = async(email: string, password: string) => {
-    console.log('eooo')
     try {
         const { data } = await inTouchIoApi.post('/auth/login', { email, password });
 
         const token = data.token
         const user = UserMapper.toEntity(data);
-
-        console.log('aaaaa')
 
         return {
             user,
