@@ -16,20 +16,21 @@ export interface MessageState {
     setIdUnseenMessages: () => void;
     setMessages: (newMessage: Message) => void;
     clearMessages: () => void;
-    setHasMoreMessages: () => void;
     getMessages: (chatId: string) => Promise<void>;
     updateMessagesStatus: (ids: string[]) => Promise<void>;
     getMessagesPagination: (chatId: string) => Promise<void>;
 }
 
-export const useMessageStore = create<MessageState>()((set, get) => ({
+const initialValues = {
     messages: [],
     idUnseenMessages: [],
     isLoading: true,
     hasMoreMessages: false,
     page: 2,
+}
 
-    setHasMoreMessages: () => { throw new Error('setHasMoreMessages not implemented') },
+export const useMessageStore = create<MessageState>()((set, get) => ({
+    ...initialValues,
 
     setIdUnseenMessages: () => { throw new Error('setIdUnseenMessages not implemented') },
 
@@ -44,7 +45,7 @@ export const useMessageStore = create<MessageState>()((set, get) => ({
     clearMessages: () => {
         set((state) => ({
             ...state, 
-            messages: []
+            ...initialValues
         }));
     },
 
@@ -77,12 +78,11 @@ export const useMessageStore = create<MessageState>()((set, get) => ({
      },
 
     getMessagesPagination: async (chatId: string) => {
-
+        set((state) => ({...state, isLoading: true}));
         try {
             const {page, messages: currentMessages} = get();
             const { messages, next } = await messageRepositoryProvider.getMessages(chatId, page, limit);
             const reversedMessage = messages.reverse()
-
             set((state) => ({
                 ...state, 
                 page: page + 1, 
@@ -98,6 +98,8 @@ export const useMessageStore = create<MessageState>()((set, get) => ({
             } else {
                 console.log(error);
             }
+        } finally {
+            set((state) => ({...state, isLoading: false}));
         }
     },
 }));
