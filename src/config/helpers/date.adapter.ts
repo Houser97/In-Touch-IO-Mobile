@@ -29,4 +29,8 @@ export class DateAdapter {
         return dateTime.toFormat("MM-dd-yyyy");
 
     }
+
+    static toHour(time: string) {
+        return DateTime.fromISO(time).toLocaleString(DateTime.TIME_SIMPLE)
+    }
 }
