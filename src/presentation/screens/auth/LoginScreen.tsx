@@ -52,6 +52,7 @@ export const LoginScreen = () => {
             <TextInput 
                     label="Password"
                     value={form.password}
+                    secureTextEntry={true}
                     style={style.textInput}
                     mode="outlined"
                     outlineStyle={style.textInput}
