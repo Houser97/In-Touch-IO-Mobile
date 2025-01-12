@@ -18,11 +18,8 @@ export const LoginScreen = () => {
         if(form.email.length === 0 || form.password.length === 0) {
             return;
         }
-
-        console.log('todo bien')
-
-        const isLogged = await login(form.email, form.password);
-        console.log('mmmm')
+        
+       const isLogged = await login(form.email, form.password);
         if(isLogged) return;
 
         Alert.alert('Error', 'Email or password incorrect');
