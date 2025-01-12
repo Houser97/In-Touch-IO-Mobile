@@ -86,8 +86,6 @@ export const useChatStore = create<ChatState>()((set, get) => ({
             result.push(data);
         })
 
-        console.log(chats)
-
         set((state) => ({
             ...state,
             userChats: chats,
