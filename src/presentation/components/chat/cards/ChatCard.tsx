@@ -19,8 +19,8 @@ interface Props {
   
 export const ChatCard = ({ picture, name, chatId, lastMessage, unseen, hour, senderId }: Props) => {
     
-    const { selectChat } = useChatStore();
-    const { getMessages,  clearMessages } = useMessageStore();
+    const { selectChat, clearUnseenMessages } = useChatStore();
+    const { getMessages,  clearMessages, updateMessagesStatus } = useMessageStore();
     const { joinChat } = useContext(SocketContext);
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
@@ -30,6 +30,8 @@ export const ChatCard = ({ picture, name, chatId, lastMessage, unseen, hour, sen
         selectChat(chatId);
         joinChat(chatId);
         getMessages(chatId);
+        updateMessagesStatus(unseen);
+        clearUnseenMessages(chatId);
         navigation.navigate('ChatScreen')
     }
 
@@ -55,7 +57,10 @@ export const ChatCard = ({ picture, name, chatId, lastMessage, unseen, hour, sen
                             <Text ellipsizeMode="tail" numberOfLines={1}>{lastMessage}</Text>
                         </View>
                     </View>
-                    <Text>{hour}</Text>
+                    <View style={[style.contentContainer, {justifyContent: 'flex-end'}]}>
+                        <Text>{hour}</Text>
+                        {unseen.length > 0 && <Text style={style.unseenMessages}>{unseen.length}</Text>}
+                    </View>
             </View>
         </Pressable>
     )
@@ -74,5 +79,15 @@ const style = StyleSheet.create({
     contentContainer: {
         display: 'flex',
         flexDirection: 'column',
+    },
+    unseenMessages: {
+        backgroundColor: '#3A9BDC',
+        color: 'white',
+        borderRadius: 50,
+        width: 25,
+        height: 25,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        alignSelf: 'center'
     }
 })
