@@ -11,6 +11,7 @@ export interface AuthState {
     errorMessage: string;
 
     login: (email: string, password: string) => Promise<boolean>;
+    updateUser: (updatedUser: User) => void;
     checkStatus: () => Promise<boolean>;
     logout: () => Promise<void>;
 }
@@ -34,6 +35,14 @@ export const useAuthStore = create<AuthState>()((set, get) => ({
         set({status: 'authenticated', user, token, errorMessage });
 
         return true;
+    },
+
+    updateUser: (updatedUser: User) => {
+        set((state) => ({
+            ...state,
+            status: 'authenticated',
+            user: updatedUser
+        }));
     },
 
     checkStatus: async() => {
