@@ -31,6 +31,10 @@ export const Contact = ({ picture = '', name = '', id = '', added = false }) => 
 
 const style = StyleSheet.create({
     container: {
+        flex: 1, // Importante para que en flatlist ocupen toda la columna
+        // Los margenes se usan para efecto de gap en FlatList
+        marginHorizontal: 10,
+        marginBottom: 10,
         flexDirection: 'row',
         backgroundColor: 'white',
         borderRadius: 5,
