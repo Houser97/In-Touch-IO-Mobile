@@ -28,8 +28,9 @@ export const Contact = ({ picture = '', name = '', id = '', added = false }) => 
         <View style={style.dataContainer}>
           <Text>{name}</Text>
 
-          <TouchableOpacity onPress={() => {}}>
-              <CustomIcon iconName="search" size={25} />
+          <TouchableOpacity onPress={() => {}} style={style.button}>
+              <CustomIcon iconName="add" size={25} style={{color: 'white'}} />
+              <Text style={{color: 'white'}}>Add User</Text>
           </TouchableOpacity>
         </View>
     </View>
@@ -51,5 +52,12 @@ const style = StyleSheet.create({
     },
     dataContainer: {
       
+    },
+    button: {
+      flexDirection: 'row',
+      backgroundColor: '#4169E1',
+      borderRadius: 5,
+      alignItems: 'center',
+      paddingRight: 10
     }
 })
