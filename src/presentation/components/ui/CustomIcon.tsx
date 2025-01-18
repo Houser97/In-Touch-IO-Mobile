@@ -1,10 +1,10 @@
-import { StyleProp, ViewStyle } from "react-native";
+import { StyleProp, TextStyle, ViewStyle } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
 interface Props {
     iconName: string;
     size: number;
-    style?: StyleProp<ViewStyle> 
+    style?: StyleProp<TextStyle> 
 }
 
 export const CustomIcon = ({iconName, size, style = {}}: Props) => {
