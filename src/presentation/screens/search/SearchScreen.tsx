@@ -1,13 +1,12 @@
 import { useMemo, useState } from "react";
-import { TouchableOpacity, View } from "react-native"
-import { TextInput } from "react-native-paper";
+import { View } from "react-native"
 import { useChatStore } from "../../store/chat/useChatStore";
 import { useAuthStore } from "../../store/auth/useAuthStore";
 import { useUsers } from "../../hooks/useUsers";
 import { Loader } from "../../components/ui/Loader";
 import { Contact } from "../../components/ui/Contact";
 import { FlatList } from "react-native-gesture-handler";
-import { CustomIcon } from "../../components/ui/CustomIcon";
+import { InputModeEnum, TextInputIcon } from "../../components/ui/TextInputIcon";
 
 export const SearchScreen = () => {
 
@@ -31,36 +30,20 @@ export const SearchScreen = () => {
 
   return (
     <View style={{flex: 1, padding: 10}}>
-        <TextInput 
-            placeholder="Search Users..."
-            placeholderTextColor='#909090'
+        <TextInputIcon 
+            inputMode={InputModeEnum.outlined} 
             value={searchQuery}
-            onChangeText={setSearchQuery}
-            mode="outlined"
-            style={{flex: 0}}
-            outlineColor="black"
-            textAlign="center"
-            textAlignVertical="center"
-            outlineStyle={{
-                flex: 1,
-                paddingHorizontal: 18,
-                borderWidth: 1,
-                borderRadius: 10,
-                paddingVertical: 0,
-                borderColor: 'black',
-                backgroundColor: 'white',
-            }}
+            placeholder="Search Users"
+            onPress={() => getByNameOrEmail(searchQuery)}
+            onChange={setSearchQuery} 
         />
 
-        <TouchableOpacity onPress={() => getByNameOrEmail(searchQuery)}>
-            <CustomIcon iconName="paper-plane-outline" size={25} />
-        </TouchableOpacity>
 
         <FlatList
             data={users}
-            keyExtractor={(user, index) => `${user.id}`}
+            keyExtractor={(user) => `${user.id}`}
             numColumns={2}
-            style={{flex: 1, backgroundColor: 'green'}}
+            style={{flex: 1}}
             renderItem={({item}) => 
                 <Contact 
                     picture={item.pictureUrl} 
