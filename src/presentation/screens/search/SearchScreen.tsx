@@ -7,10 +7,13 @@ import { Loader } from "../../components/ui/Loader";
 import { Contact } from "../../components/ui/Contact";
 import { FlatList } from "react-native-gesture-handler";
 import { InputModeEnum, TextInputIcon } from "../../components/ui/TextInputIcon";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export const SearchScreen = () => {
 
     const [searchQuery, setSearchQuery] = useState('');
+
+    const {top} = useSafeAreaInsets();
 
     const { userChats } = useChatStore();
     const { user } = useAuthStore();
@@ -43,7 +46,7 @@ export const SearchScreen = () => {
             data={users}
             keyExtractor={(user) => `${user.id}`}
             numColumns={2}
-            style={{flex: 1}}
+            style={{paddingTop: top + 20}}
             renderItem={({item}) => 
                 <Contact 
                     picture={item.pictureUrl} 
