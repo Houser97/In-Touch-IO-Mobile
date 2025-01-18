@@ -1,7 +1,8 @@
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useAuthStore } from "../../store/auth/useAuthStore";
 import { useChatStore } from "../../store/chat/useChatStore";
 import { Text } from "react-native-paper";
+import { CustomIcon } from "./CustomIcon";
 
 export const Contact = ({ picture = '', name = '', id = '', added = false }) => {
 
@@ -24,7 +25,13 @@ export const Contact = ({ picture = '', name = '', id = '', added = false }) => 
                 }
             ]}
         />
-        <Text>{name}</Text>
+        <View style={style.dataContainer}>
+          <Text>{name}</Text>
+
+          <TouchableOpacity onPress={() => {}}>
+              <CustomIcon iconName="search" size={25} />
+          </TouchableOpacity>
+        </View>
     </View>
   )
 }
@@ -41,5 +48,8 @@ const style = StyleSheet.create({
         padding: 10,
         gap: 20,
         width: 200
+    },
+    dataContainer: {
+      
     }
 })
