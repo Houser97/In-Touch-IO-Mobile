@@ -36,7 +36,7 @@ const style = StyleSheet.create({
         marginHorizontal: 10,
         marginBottom: 10,
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: '#E7EAE5',
         borderRadius: 5,
         padding: 10,
         gap: 20,
