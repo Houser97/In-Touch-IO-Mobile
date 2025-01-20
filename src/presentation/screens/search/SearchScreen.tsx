@@ -51,6 +51,7 @@ export const SearchScreen = () => {
                 <Contact 
                     picture={item.pictureUrl} 
                     name={item.name}
+                    added={AddedFriends.includes(item.id)}
                 />
             }
             onEndReachedThreshold={0.6}
