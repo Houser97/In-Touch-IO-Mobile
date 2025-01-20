@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useLayoutEffect, useMemo, useState } from "react";
 import { View } from "react-native"
 import { useChatStore } from "../../store/chat/useChatStore";
 import { useAuthStore } from "../../store/auth/useAuthStore";
@@ -8,8 +8,23 @@ import { Contact } from "../../components/ui/Contact";
 import { FlatList } from "react-native-gesture-handler";
 import { InputModeEnum, TextInputIcon } from "../../components/ui/TextInputIcon";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParams } from "../../navigator/StackNavigator";
+import { MessageHeader } from "../../components/messages/MessageHeader";
+import { NavigationHeader } from "../../components/ui/NavigationHeader";
 
 export const SearchScreen = () => {
+
+    const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerShown: true,
+            headerTitle: () => (
+                <NavigationHeader title="Search Users" />
+            )
+        });
+    }, [])
 
     const [searchQuery, setSearchQuery] = useState('');
 
@@ -52,6 +67,7 @@ export const SearchScreen = () => {
                     picture={item.pictureUrl} 
                     name={item.name}
                     added={AddedFriends.includes(item.id)}
+                    id={item.id}
                 />
             }
             onEndReachedThreshold={0.6}
