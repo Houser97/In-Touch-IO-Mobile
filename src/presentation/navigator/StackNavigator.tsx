@@ -23,7 +23,7 @@ export const StackNavigator = () => {
         initialRouteName='LoadingScreen'
         screenOptions={{
             headerShown: false,
-            headerStyle: {height: 60, }
+            headerStyle: {height: 60, backgroundColor:'white', borderBottomColor: 'black', borderBottomWidth: 1}
         }}>
             <Stack.Screen name='HomeScreen' component={HomeScreen} />
             <Stack.Screen name='LoginScreen' component={LoginScreen} />
