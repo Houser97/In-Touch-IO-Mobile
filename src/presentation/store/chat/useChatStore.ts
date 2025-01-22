@@ -163,7 +163,7 @@ export const useChatStore = create<ChatState>()((set, get) => ({
         try {
             const chat = await chatRepositoryProvider.create(userIds);
             const currentChats = get().userChats;
-            get().setUserChats({ ...currentChats, [chat.id]: chat });
+            get().setUserChats({ [chat.id]: chat, ...currentChats });
         } catch (error: any | CustomError) {
             if (error.status === 401) {
                 const logout = useAuthStore.getState().logout;
