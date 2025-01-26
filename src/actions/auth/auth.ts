@@ -35,6 +35,27 @@ export const authLogin = async(email: string, password: string) => {
     }
 }
 
+export const authRegister = async(email: string, password: string, username: string) => {
+    try {
+        const { data } = await inTouchIoApi.post('/auth/register', { email, password, name: username });
+        const user = UserMapper.toEntity(data);
+        const token = data.token
+        return {
+            user,
+            status: 'authenticated',
+            token,
+            errorMessage: ''
+        }
+    } catch (error: any) {
+        return {
+            status: 'unauthenticated',
+            user: undefined,
+            token: undefined,
+            errorMessage: error.response.data?.error || 'Wrong credentials Register'
+        };
+    }
+}
+
 export const authCheckStatus = async () => {
     try {
         const { data } = await inTouchIoApi.get('/auth');
