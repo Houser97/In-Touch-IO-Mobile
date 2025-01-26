@@ -1,13 +1,17 @@
 import { useState } from "react";
-import { Alert, StyleSheet, useWindowDimensions, View } from "react-native"
+import { Alert, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import { Button, Text, TextInput } from "react-native-paper"
 import { useAuthStore } from "../../store/auth/useAuthStore";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParams } from "../../navigator/StackNavigator";
 
 export const LoginScreen = () => {
 
     const { login } = useAuthStore();
     const { height } = useWindowDimensions();
+
+    const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
     const [form, setForm] = useState({
         email: '',
@@ -69,6 +73,15 @@ export const LoginScreen = () => {
                 </Button>
             </View>
 
+            <View style={style.register}>
+                <Text>Not register?</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+                    <Text>
+                        Register
+                    </Text>
+                </TouchableOpacity>
+            </View>
+
         </ScrollView>
     </View>
   )
@@ -83,5 +96,10 @@ const style = StyleSheet.create({
     button: {
         borderRadius: 5, 
         backgroundColor: '#24a0ed'
+    },
+    register: {
+        flexDirection: 'row',
+        marginHorizontal: 1,
+        gap: 5,
     }
 })
