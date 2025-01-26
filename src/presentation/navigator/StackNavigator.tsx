@@ -5,10 +5,12 @@ import { LoadingScreen } from '../screens/loading/LoadingScreen';
 import { ChatScreen } from '../screens/chat/ChatScreen';
 import { SearchScreen } from '../screens/search/SearchScreen';
 import { UserScreen } from '../screens/settings/UserScreen';
+import { RegisterScreen } from '../screens/auth/RegisterScreen';
 
 export type RootStackParams = {
     HomeScreen: undefined;
     LoginScreen: undefined;
+    RegisterScreen: undefined;
     LoadingScreen: undefined;
     ChatScreen: undefined;
     SearchScreen: undefined;
@@ -27,6 +29,7 @@ export const StackNavigator = () => {
         }}>
             <Stack.Screen name='HomeScreen' component={HomeScreen} />
             <Stack.Screen name='LoginScreen' component={LoginScreen} />
+            <Stack.Screen name='RegisterScreen' component={RegisterScreen} />
             <Stack.Screen name='LoadingScreen' component={LoadingScreen} />
             <Stack.Screen name='ChatScreen' component={ChatScreen} />
             <Stack.Screen name='SearchScreen' component={SearchScreen} />
