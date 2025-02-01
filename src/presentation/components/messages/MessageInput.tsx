@@ -7,6 +7,7 @@ import { SocketContext } from "../../providers/SocketProvider";
 import { OptionsModal } from "./OptionsModal";
 
 import { CustomIcon } from "../ui/CustomIcon";
+import { ImageStorageAdapter } from "../../../config/helpers/cloudinary.adapter";
 
 export const MessageInput = () => {
 
@@ -17,9 +18,14 @@ export const MessageInput = () => {
 
     const [message, setMessage] = useState('');
 
-    const handleMessageCreation = (image: string) => {
+    const handleMessageCreation = async (image: string) => {
+        let imageUrl = image;
+        if(imageUrl.length){
+            const result = await ImageStorageAdapter.uploadImage(image);
+            imageUrl = result.imageUrl;
+        }
         setMessage('');    
-        sendMessage(user!.id, message, image as string);
+        sendMessage(user!.id, message, imageUrl);
     }
 
     return (
@@ -59,7 +65,7 @@ export const MessageInput = () => {
 
             <OptionsModal 
                 isVisible={isModalOpen} 
-                sendMessage={handleMessageCreation}
+                onAction={handleMessageCreation}
                 onClose={() => setIsModalOpen(false)} 
             />
         </View>
