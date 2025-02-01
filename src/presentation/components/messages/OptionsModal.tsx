@@ -3,23 +3,20 @@ import { Text } from "react-native-paper"
 import { CustomIcon } from "../ui/CustomIcon"
 import { ButtonIcon } from "../ui/ButtonIcon"
 import { CameraAdapter } from "../../../config/helpers/camera.adapter"
-import { ImageStorageAdapter } from "../../../config/helpers/cloudinary.adapter"
 
 interface Props {
     isVisible: boolean;
-    sendMessage: (imageUrl: string) => void;
+    onAction: (imageUrl: string) => void;
     onClose: () => void;
 }
 
-export const OptionsModal = ({ isVisible, sendMessage , onClose }: Props) => {
+export const OptionsModal = ({ isVisible, onAction , onClose }: Props) => {
 
     
     const pictureFromCamera = async () => {
         const photos = await CameraAdapter.takePicture();
         if(photos.length){
-            const result = await ImageStorageAdapter.uploadImage(photos[0]);
-            const { imageUrl } = result;
-            sendMessage(imageUrl);
+            onAction(photos[0]);
             onClose();
         }
     }
@@ -27,9 +24,7 @@ export const OptionsModal = ({ isVisible, sendMessage , onClose }: Props) => {
     const pictureFromGallery = async () => {
         const photos = await CameraAdapter.getPicturesFromLibrary();
         if(photos.length){
-            const result = await ImageStorageAdapter.uploadImage(photos[0]);
-            const { imageUrl } = result;
-            sendMessage(imageUrl);
+            onAction(photos[0]);
             onClose();
         }
     }
