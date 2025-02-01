@@ -15,7 +15,7 @@ const { LightTheme: PaperLightTheme, DarkTheme: PaperDarkTheme } = adaptNavigati
 } );
  
 export const ThemeContext = createContext( {
-  isDark: false,
+  isDark: true,
   theme: PaperLightTheme,
 } );
  
