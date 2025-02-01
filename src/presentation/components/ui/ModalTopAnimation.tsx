@@ -2,6 +2,8 @@ import { Animated, Modal, Pressable, SafeAreaView, StyleSheet } from "react-nati
 import { Text } from "react-native-paper"
 import { CustomIcon } from "./CustomIcon";
 import { useAuthStore } from "../../store/auth/useAuthStore";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParams } from "../../navigator/StackNavigator";
 
 interface Props {
     scale: Animated.Value;
@@ -11,11 +13,14 @@ interface Props {
 
 export const ModalTopAnimation = ({scale, isVisible, onPress}: Props) => {
     const { logout } = useAuthStore();
+
+    const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
     const options = [
         {
             title: 'Settings',
             icon: 'settings',
-            action: () => {}
+            action: () => navigation.navigate('UserScreen'),
         },
         {
             title: 'Logout',
