@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Alert, StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native"
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import { Button, Text, TextInput } from "react-native-paper"
 import { useAuthStore } from "../../store/auth/useAuthStore";
@@ -9,7 +9,6 @@ import { RootStackParams } from "../../navigator/StackNavigator";
 export const LoginScreen = () => {
 
     const { login } = useAuthStore();
-    const { height } = useWindowDimensions();
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
@@ -32,14 +31,16 @@ export const LoginScreen = () => {
   return (
     <View style={{flex: 1}}>
         {/*ScrollView ayuda a que el formulario sea desplazable cuando salga el teclado*/}
-        <ScrollView style={{marginInline: 40}}>
-
-            <View style={{paddingTop: height * 0.35}}>
-                <Text style={{fontWeight: '500', fontSize: 40}}>Login</Text>
-            </View>
-
+        <ScrollView 
+            style={{paddingInline: 40}} 
+            contentContainerStyle={{justifyContent: 'center', flexGrow: 1}}
+        >
 
             <View style={{gap: 20}}>
+                <View>
+                    <Text style={{fontWeight: '500', fontSize: 40}}>Login</Text>
+                </View>
+
                 <TextInput 
                     label="Email"
                     value={form.email}
@@ -50,38 +51,38 @@ export const LoginScreen = () => {
                     onChangeText={text => setForm({...form, email: text})}
                 />
 
-            <TextInput 
-                    label="Password"
-                    value={form.password}
-                    secureTextEntry={true}
-                    style={style.textInput}
-                    mode="outlined"
-                    outlineStyle={style.textInput}
-                    outlineColor="black"
-                    onChangeText={text => setForm({...form, password: text})}
+                <TextInput 
+                        label="Password"
+                        value={form.password}
+                        secureTextEntry={true}
+                        style={style.textInput}
+                        mode="outlined"
+                        outlineStyle={style.textInput}
+                        outlineColor="black"
+                        onChangeText={text => setForm({...form, password: text})}
                 />
-            </View>
-            
-            <View style={{marginTop: 10}}>
-                <Button 
-                mode="contained"
-                textColor="white"
-                
-                style={style.button}
-                onPress={onLogin}>
-                    Login
-                </Button>
-            </View>
 
-            <View style={style.register}>
-                <Text>Not register?</Text>
-                <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
-                    <Text>
-                        Register
-                    </Text>
-                </TouchableOpacity>
-            </View>
 
+                <View>
+                    <Button 
+                    mode="contained"
+                    textColor="white"
+                    
+                    style={style.button}
+                    onPress={onLogin}>
+                        Login
+                    </Button>
+                </View>
+
+                <View style={style.register}>
+                    <Text>Don't have an account yet?</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+                        <Text style={{fontWeight: 'bold'}}>
+                            Sign up
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </ScrollView>
     </View>
   )
