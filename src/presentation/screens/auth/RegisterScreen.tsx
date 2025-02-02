@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { Alert, StyleSheet, useWindowDimensions, View } from "react-native"
+import { Alert, StyleSheet, TouchableOpacity, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import { Button, Text, TextInput } from "react-native-paper"
 import { useAuthStore } from "../../store/auth/useAuthStore";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParams } from "../../navigator/StackNavigator";
 
 export const RegisterScreen = () => {
 
     const { register } = useAuthStore();
-    const { height } = useWindowDimensions();
+
+    const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
     const [form, setForm] = useState({
         email: '',
@@ -30,14 +33,14 @@ export const RegisterScreen = () => {
   return (
     <View style={{flex: 1}}>
         {/*ScrollView ayuda a que el formulario sea desplazable cuando salga el teclado*/}
-        <ScrollView style={{marginInline: 40}}>
-
-            <View style={{paddingTop: height * 0.35}}>
-                <Text style={{fontWeight: '500', fontSize: 40}}>Register</Text>
-            </View>
-
-
+        <ScrollView
+            style={{paddingInline: 40}} 
+            contentContainerStyle={{justifyContent: 'center', flexGrow: 1}}
+        >
             <View style={{gap: 20}}>
+                <View>
+                    <Text style={{fontWeight: '500', fontSize: 40}}>Register</Text>
+                </View>
                 <TextInput 
                     label="Email"
                     value={form.email}
@@ -79,19 +82,27 @@ export const RegisterScreen = () => {
                     outlineColor="black"
                     onChangeText={text => setForm({...form, username: text})}
                 />
-            </View>
-            
-            <View style={{marginTop: 10}}>
-                <Button 
-                mode="contained"
-                textColor="white"
-                
-                style={style.button}
-                onPress={onRegister}>
-                    Register
-                </Button>
-            </View>
 
+                <View style={{marginTop: 10}}>
+                    <Button 
+                    mode="contained"
+                    textColor="white"
+                    
+                    style={style.button}
+                    onPress={onRegister}>
+                        Register
+                    </Button>
+                </View>
+
+                <View style={style.register}>
+                    <Text>Already have an account?</Text>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Text style={{fontWeight: 'bold'}}>
+                            Sign in
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
         </ScrollView>
     </View>
   )
@@ -106,5 +117,10 @@ const style = StyleSheet.create({
     button: {
         borderRadius: 5, 
         backgroundColor: '#24a0ed'
+    },
+    register: {
+        flexDirection: 'row',
+        marginHorizontal: 1,
+        gap: 5,
     }
 })
