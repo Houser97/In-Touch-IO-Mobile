@@ -100,7 +100,7 @@ export const useChatStore = create<ChatState>()((set, get) => ({
             const { id, users, lastMessage, updatedAt } = chat
     
             const senderId = lastMessage?.sender || '';
-            const content = lastMessage ? lastMessage?.content || '' : 'empty';
+            const content = lastMessage ? lastMessage?.image || lastMessage?.content : 'empty';
     
             const friend = users.find((chatUser) => chatUser.id !== useAuthStore.getState().user?.id);
             const { name, pictureUrl } = friend!;
