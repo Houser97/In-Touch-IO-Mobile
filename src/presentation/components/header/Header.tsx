@@ -18,7 +18,7 @@ export const Header = () => {
         toValue >= 0 && setModalIsVisible(true);
         startMovingTopPosition({
             initialPosition: initialPosition,
-            duration: 300,
+            duration: 450,
             toValue,
             callback: () => toValue < 0 && setModalIsVisible(false)
         })
@@ -30,7 +30,7 @@ export const Header = () => {
             <Text variant="displaySmall" style={{fontWeight: '900'}}>In-Touch IO</Text>
         </View>
 
-        <Pressable style = {style.imageContainer} onPress={() => resizeBox(1, -300)}>
+        <Pressable style = {style.imageContainer} onPress={() => resizeBox(0, -300)}>
             <Image 
                 source={{
                     uri: user?.pictureUrl
