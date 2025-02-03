@@ -1,11 +1,11 @@
-import {useRef} from 'react';
-import {Animated, Easing} from 'react-native';
+import { useRef } from "react";
+import { Animated, Easing } from "react-native";
 
 export const useAnimation = () => {
   const animatedOpacity = useRef(new Animated.Value(0)).current;
-  const animatedTop = useRef(new Animated.Value(0)).current;
+  const animatedTop = useRef(new Animated.Value(-300)).current;
 
-  const fadeIn = ({duration = 300, toValue = 1, callback = () => {}}) => {
+  const fadeIn = ({ duration = 300, toValue = 1, callback = () => {} }) => {
     Animated.timing(animatedOpacity, {
       toValue: toValue,
       duration: duration,
@@ -13,7 +13,7 @@ export const useAnimation = () => {
     }).start(callback);
   };
 
-  const fadeOut = ({duration = 300, toValue = 0, callback = () => {}}) => {
+  const fadeOut = ({ duration = 300, toValue = 0, callback = () => {} }) => {
     Animated.timing(animatedOpacity, {
       toValue: toValue,
       duration: duration,
@@ -22,7 +22,7 @@ export const useAnimation = () => {
   };
 
   const startMovingTopPosition = ({
-    initialPosition = 0,
+    initialPosition = -300, // Asegurar que empieza oculto
     toValue = 0,
     duration = 300,
     easing = Easing.linear,
@@ -40,7 +40,6 @@ export const useAnimation = () => {
   return {
     animatedOpacity,
     animatedTop,
-
     fadeIn,
     fadeOut,
     startMovingTopPosition,
