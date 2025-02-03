@@ -6,6 +6,7 @@ import { useChatStore } from "../../../store/chat/useChatStore"
 import { useMessageStore } from "../../../store/messages/useMessageStore"
 import { useContext } from "react"
 import { SocketContext } from "../../../providers/SocketProvider"
+import { CustomIcon } from "../../ui/CustomIcon"
 
 interface Props {
     picture: string,
@@ -15,7 +16,16 @@ interface Props {
     unseen: string[],
     hour: string,
     senderId: string,
-  }
+}
+
+const PhotoMessage = () => {
+    return (
+        <View style={{flexDirection: 'row', gap: 3}}>
+            <CustomIcon iconName="image" size={18} style={{color: 'gray', paddingInline: 1}}></CustomIcon>
+            <Text ellipsizeMode="tail" numberOfLines={1}>Photo</Text>
+        </View>
+    )
+}
   
 export const ChatCard = ({ picture, name, chatId, lastMessage, unseen, hour, senderId }: Props) => {
     
@@ -24,6 +34,12 @@ export const ChatCard = ({ picture, name, chatId, lastMessage, unseen, hour, sen
     const { joinChat } = useContext(SocketContext);
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
+
+    const isImage = (lastMessage as string).includes('https');
+
+    const lastMessageFormatted = lastMessage !== 'empty' 
+    ? lastMessage 
+    : ''
 
     const navigate = () => {
         clearMessages();
@@ -53,8 +69,12 @@ export const ChatCard = ({ picture, name, chatId, lastMessage, unseen, hour, sen
                     />
                     <View style={{flex: 1}}>
                         <View style={style.contentContainer}>
-                            <Text style={{fontWeight: '800', fontSize: 17}}>{name}</Text>
-                            <Text ellipsizeMode="tail" numberOfLines={1}>{lastMessage}</Text>
+                            <Text style={{fontWeight: '700', fontSize: 16}}>{name}</Text>
+                            {isImage 
+                                ? <PhotoMessage />
+                                : <Text ellipsizeMode="tail" numberOfLines={1}>{lastMessageFormatted}</Text>
+                            }
+                            
                         </View>
                     </View>
                     <View style={[style.contentContainer, {justifyContent: 'flex-end'}]}>
