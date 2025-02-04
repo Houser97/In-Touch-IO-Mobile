@@ -4,6 +4,7 @@ import { CustomIcon } from "./CustomIcon";
 import { useAuthStore } from "../../store/auth/useAuthStore";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParams } from "../../navigator/StackNavigator";
+import { useChatStore } from "../../store/chat/useChatStore";
 
 interface Props {
     scale: Animated.Value;
@@ -13,6 +14,7 @@ interface Props {
 
 export const ModalTopAnimation = ({scale, isVisible, onPress}: Props) => {
     const { logout } = useAuthStore();
+    const { setUserChats } = useChatStore();
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
@@ -28,6 +30,7 @@ export const ModalTopAnimation = ({scale, isVisible, onPress}: Props) => {
             action: () => { 
                 setTimeout(function() {
                     logout()
+                    setUserChats({})
                 }, 500);
             }
         }
