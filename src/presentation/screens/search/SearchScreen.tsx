@@ -61,7 +61,7 @@ export const SearchScreen = () => {
             data={users}
             keyExtractor={(user) => `${user.id}`}
             numColumns={2}
-            style={{paddingTop: top + 20}}
+            style={{marginTop: top + 20}}
             renderItem={({item}) => 
                 <Contact 
                     picture={item.pictureUrl} 
