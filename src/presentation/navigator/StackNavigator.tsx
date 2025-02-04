@@ -25,7 +25,15 @@ export const StackNavigator = () => {
         initialRouteName='LoadingScreen'
         screenOptions={{
             headerShown: false,
-            headerStyle: {height: 60, backgroundColor:'white', borderBottomColor: 'black', borderBottomWidth: 1}
+            headerStyle: {
+                height: 60, 
+                backgroundColor:'transparent', 
+                borderBottomColor: 'gray', 
+                borderBottomWidth: 1,
+                boxShadow: '',
+                elevation: 0, // remove shadow on Android
+                shadowOpacity: 0, // remove shadow on iOS
+            }
         }}>
             <Stack.Screen name='HomeScreen' component={HomeScreen} />
             <Stack.Screen name='LoginScreen' component={LoginScreen} />
