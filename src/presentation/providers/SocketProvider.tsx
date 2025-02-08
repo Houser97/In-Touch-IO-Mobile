@@ -10,8 +10,8 @@ import { SOCKET_URL as PROD_URL, SOCKET_URL_ANDROID, SOCKET_URL_IOS, STAGE } fro
 import { Platform } from "react-native";
 
 
-export const SOCKET_URL = 
-    (STAGE === 'prod') 
+export const SOCKET_URL =
+    (STAGE === 'prod')
         ? PROD_URL
         : Platform.OS === 'ios'
             ? SOCKET_URL_IOS
@@ -38,7 +38,7 @@ export const SocketProvider = ({ children }: PropsWithChildren) => {
     const { socket, online, connect, disconnect } = useSocket(SOCKET_URL);
     const { status } = useAuthStore();
     const { chat, updateUserChats } = useChatStore();
-    const { setMessages  } = useMessageStore();
+    const { setMessages } = useMessageStore();
 
     useEffect(() => {
         if (status === 'authenticated') {

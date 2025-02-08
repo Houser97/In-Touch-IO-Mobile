@@ -9,17 +9,17 @@ interface Props {
     onClick: () => void;
 }
 
-export const ButtonIcon = ({ icon, iconColor, description ,onClick }: Props) => {
-  return (
-    <Pressable style={style.container} onPress={onClick}>
-        <View style={[style.iconContainer, {backgroundColor: iconColor}]}>
-            <CustomIcon iconName={icon} size={25} style={style.icon} />
-        </View>
-        <Text style={style.description}>
-            {description}
-        </Text>
-    </Pressable>
-  )
+export const ButtonIcon = ({ icon, iconColor, description, onClick }: Props) => {
+    return (
+        <Pressable style={style.container} onPress={onClick}>
+            <View style={[style.iconContainer, { backgroundColor: iconColor }]}>
+                <CustomIcon iconName={icon} size={25} style={style.icon} />
+            </View>
+            <Text style={style.description}>
+                {description}
+            </Text>
+        </Pressable>
+    )
 }
 
 const style = StyleSheet.create({

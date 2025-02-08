@@ -1,31 +1,31 @@
 import { PropsWithChildren, createContext } from 'react';
- 
+
 import {
   NavigationContainer,
   DarkTheme as NavigationDarkTheme,
   DefaultTheme as NavigationDefaultTheme,
 } from '@react-navigation/native';
- 
+
 import { PaperProvider, adaptNavigationTheme, MD3LightTheme, MD3DarkTheme } from 'react-native-paper';
 import { useColorScheme } from 'react-native';
- 
-const { LightTheme: PaperLightTheme, DarkTheme: PaperDarkTheme } = adaptNavigationTheme( {
+
+const { LightTheme: PaperLightTheme, DarkTheme: PaperDarkTheme } = adaptNavigationTheme({
   reactNavigationLight: NavigationDefaultTheme,
   reactNavigationDark: NavigationDarkTheme,
-} );
- 
-export const ThemeContext = createContext( {
+});
+
+export const ThemeContext = createContext({
   isDark: true,
   theme: PaperLightTheme,
-} );
- 
-export const ThemeContextProvider = ( { children }: PropsWithChildren ) => {
+});
+
+export const ThemeContextProvider = ({ children }: PropsWithChildren) => {
   const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
- 
+
   const CombinedTheme = {
-    ...( isDark ? MD3DarkTheme : MD3LightTheme ),
-    ...( ( isDark ? PaperDarkTheme : PaperLightTheme ) as any ),
+    ...(isDark ? MD3DarkTheme : MD3LightTheme),
+    ...((isDark ? PaperDarkTheme : PaperLightTheme) as any),
     fonts: {
       displaySmall: { fontFamily: 'Nunito-Regular', fontWeight: '400', fontSize: 20 },
       displayMedium: { fontFamily: 'Nunito-Regular', fontWeight: '400', fontSize: 24 },
@@ -42,15 +42,15 @@ export const ThemeContextProvider = ( { children }: PropsWithChildren ) => {
     },
   };
   return (
-    <PaperProvider theme={ CombinedTheme }>
-      <NavigationContainer theme={ CombinedTheme }>
+    <PaperProvider theme={CombinedTheme}>
+      <NavigationContainer theme={CombinedTheme}>
         <ThemeContext.Provider
-          value={ {
+          value={{
             isDark,
             theme: CombinedTheme,
-          } }
+          }}
         >
-          { children }
+          {children}
         </ThemeContext.Provider>
       </NavigationContainer>
     </PaperProvider>

@@ -20,21 +20,21 @@ export type RootStackParams = {
 const Stack = createStackNavigator<RootStackParams>();
 
 export const StackNavigator = () => {
-    return(
-        <Stack.Navigator 
-        initialRouteName='LoadingScreen'
-        screenOptions={{
-            headerShown: false,
-            headerStyle: {
-                height: 60, 
-                backgroundColor:'transparent', 
-                borderBottomColor: 'gray', 
-                borderBottomWidth: 1,
-                boxShadow: '',
-                elevation: 0, // remove shadow on Android
-                shadowOpacity: 0, // remove shadow on iOS
-            }
-        }}>
+    return (
+        <Stack.Navigator
+            initialRouteName='LoadingScreen'
+            screenOptions={{
+                headerShown: false,
+                headerStyle: {
+                    height: 60,
+                    backgroundColor: 'transparent',
+                    borderBottomColor: 'gray',
+                    borderBottomWidth: 1,
+                    boxShadow: '',
+                    elevation: 0, // remove shadow on Android
+                    shadowOpacity: 0, // remove shadow on iOS
+                }
+            }}>
             <Stack.Screen name='HomeScreen' component={HomeScreen} />
             <Stack.Screen name='LoginScreen' component={LoginScreen} />
             <Stack.Screen name='RegisterScreen' component={RegisterScreen} />

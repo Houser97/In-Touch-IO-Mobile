@@ -12,7 +12,7 @@ interface Props {
     onPress: (value: number, initialPosition: number) => void;
 }
 
-export const ModalTopAnimation = ({scale, isVisible, onPress}: Props) => {
+export const ModalTopAnimation = ({ scale, isVisible, onPress }: Props) => {
     const { logout } = useAuthStore();
     const { setUserChats } = useChatStore();
 
@@ -27,8 +27,8 @@ export const ModalTopAnimation = ({scale, isVisible, onPress}: Props) => {
         {
             title: 'Logout',
             icon: 'log-out',
-            action: () => { 
-                setTimeout(function() {
+            action: () => {
+                setTimeout(function () {
                     logout()
                     setUserChats({})
                 }, 500);
@@ -38,21 +38,21 @@ export const ModalTopAnimation = ({scale, isVisible, onPress}: Props) => {
     return (
         <Modal transparent visible={isVisible} >
             <SafeAreaView style={style.container} onTouchStart={() => onPress(-400, 0)} >
-                <Animated.View 
+                <Animated.View
                     style={[
-                        style.popup, 
-                        {transform: [{translateY: scale}]}
+                        style.popup,
+                        { transform: [{ translateY: scale }] }
                     ]}>
-                    {options.map((o,i) => (
-                        <Pressable 
-                            key={i} 
+                    {options.map((o, i) => (
+                        <Pressable
+                            key={i}
                             style={style.button}
                             onPress={o.action}
                         >
-                            <CustomIcon 
-                                iconName={o.icon} 
-                                size={25} 
-                                style={{height: 25, width: 25}} 
+                            <CustomIcon
+                                iconName={o.icon}
+                                size={25}
+                                style={{ height: 25, width: 25 }}
                             />
 
                             <Text>{o.title}</Text>
@@ -66,9 +66,9 @@ export const ModalTopAnimation = ({scale, isVisible, onPress}: Props) => {
 
 const style = StyleSheet.create({
     container: {
-        top: 76, 
-        width: '100%', 
-        height: '100%', 
+        top: 76,
+        width: '100%',
+        height: '100%',
         overflow: 'hidden'
     },
     popup: {

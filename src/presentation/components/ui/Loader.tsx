@@ -15,7 +15,7 @@ const style = StyleSheet.create({
         paddingBlock: 10,
         backgroundColor: 'transparent',
         position: 'absolute',
-        alignItems: 'center', 
+        alignItems: 'center',
         justifyContent: 'center',
     }
 });

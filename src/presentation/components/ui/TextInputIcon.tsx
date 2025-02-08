@@ -16,30 +16,30 @@ interface Props {
     onPress: ((event: GestureResponderEvent) => void) | undefined
 }
 
-export const TextInputIcon = ({value, inputMode, placeholder, onChange, onPress}: Props) => {
-  return (
-    <View style={style.container}>
-        <TextInput 
-            placeholder={placeholder}
-            placeholderTextColor='#909090'
-            value={value}
-            onChangeText={onChange}
-            mode={inputMode}
-            style={{flex: 1}}
-            outlineColor="black"
-            textAlign="center"
-            textAlignVertical="center"
-            outlineStyle={{
-                borderWidth: 0,
-                paddingHorizontal: 18,
-            }}
-        />
+export const TextInputIcon = ({ value, inputMode, placeholder, onChange, onPress }: Props) => {
+    return (
+        <View style={style.container}>
+            <TextInput
+                placeholder={placeholder}
+                placeholderTextColor='#909090'
+                value={value}
+                onChangeText={onChange}
+                mode={inputMode}
+                style={{ flex: 1 }}
+                outlineColor="black"
+                textAlign="center"
+                textAlignVertical="center"
+                outlineStyle={{
+                    borderWidth: 0,
+                    paddingHorizontal: 18,
+                }}
+            />
 
-        <TouchableOpacity onPress={onPress} style={style.buttonContainer}>
-            <CustomIcon iconName="search" size={25} />
-        </TouchableOpacity>
-    </View>
-  )
+            <TouchableOpacity onPress={onPress} style={style.buttonContainer}>
+                <CustomIcon iconName="search" size={25} />
+            </TouchableOpacity>
+        </View>
+    )
 }
 
 const style = StyleSheet.create({
