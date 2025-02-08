@@ -17,14 +17,20 @@ export const RegisterScreen = () => {
         password: '',
         repeatPassword: '',
         username: '',
-    })
+    });
+
+    const [passwordsMatch, setPasswordMatch] = useState(false);
 
     const onRegister = async() => {
-        if(form.email.length === 0 || form.password.length === 0 || form.password !== form.repeatPassword || form.username.length === 0) {
+        if(!passwordsMatch){
+            Alert.alert('Error', 'Passwords must be identical');
+        }
+
+        if(form.email.length === 0 || form.password.length === 0 || form.username.length === 0) {
             return;
         }
         
-       const isLogged = await register(form.email, form.password, form.username);
+        const isLogged = await register(form.email, form.password, form.username);
         if(isLogged) return;
 
         Alert.alert('Error', 'Email or password incorrect');
@@ -68,9 +74,12 @@ export const RegisterScreen = () => {
                     secureTextEntry={true}
                     style={style.textInput}
                     mode="outlined"
-                    outlineStyle={style.textInput}
+                    outlineStyle={[style.textInput, !passwordsMatch && style.invalidInput]}
                     outlineColor="black"
-                    onChangeText={text => setForm({...form, repeatPassword: text})}
+                    onChangeText={text => {
+                        setForm({...form, repeatPassword: text})
+                        setPasswordMatch(form.password === text)
+                    }}
                 />
 
                 <TextInput 
@@ -122,5 +131,8 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         marginHorizontal: 1,
         gap: 5,
+    },
+    invalidInput: {
+        borderColor: '#CD5C5C',
     }
 })
