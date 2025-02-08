@@ -20,11 +20,11 @@ export const MessageInput = () => {
 
     const handleMessageCreation = async (image: string) => {
         let imageUrl = image;
-        if(imageUrl.length){
+        if (imageUrl.length) {
             const result = await ImageStorageAdapter.uploadImage(image);
             imageUrl = result.imageUrl;
         }
-        setMessage('');    
+        setMessage('');
         sendMessage(user!.id, message, imageUrl);
     }
 
@@ -38,35 +38,35 @@ export const MessageInput = () => {
                     <CustomIcon iconName="attach-outline" size={25} />
                 </TouchableOpacity>
 
-                <TextInput 
-                                placeholder="Message..."
-                                placeholderTextColor='#909090'
-                                value={message}
-                                onChangeText={setMessage}
-                                mode="outlined"
-                                style={{flex: 1}}
-                                outlineColor="black"
-                                textAlign="center"
-                                textAlignVertical="center"
-                                outlineStyle={{
-                                    flex: 1,
-                                    paddingHorizontal: 18,
-                                    borderWidth: 1,
-                                    borderRadius: 10,
-                                    paddingVertical: 0,
-                                    borderColor: '#d0d0d0',
-                                    backgroundColor: 'white',
-                                }}
+                <TextInput
+                    placeholder="Message..."
+                    placeholderTextColor='#909090'
+                    value={message}
+                    onChangeText={setMessage}
+                    mode="outlined"
+                    style={{ flex: 1 }}
+                    outlineColor="black"
+                    textAlign="center"
+                    textAlignVertical="center"
+                    outlineStyle={{
+                        flex: 1,
+                        paddingHorizontal: 18,
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        paddingVertical: 0,
+                        borderColor: '#d0d0d0',
+                        backgroundColor: 'white',
+                    }}
                 />
             </View>
             <TouchableOpacity onPress={() => handleMessageCreation('')}>
                 <CustomIcon iconName="paper-plane-outline" size={25} />
             </TouchableOpacity>
 
-            <OptionsModal 
-                isVisible={isModalOpen} 
+            <OptionsModal
+                isVisible={isModalOpen}
                 onAction={handleMessageCreation}
-                onClose={() => setIsModalOpen(false)} 
+                onClose={() => setIsModalOpen(false)}
             />
         </View>
     )

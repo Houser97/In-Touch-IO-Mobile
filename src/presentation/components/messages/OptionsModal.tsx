@@ -10,12 +10,12 @@ interface Props {
     onClose: () => void;
 }
 
-export const OptionsModal = ({ isVisible, onAction , onClose }: Props) => {
+export const OptionsModal = ({ isVisible, onAction, onClose }: Props) => {
 
-    
+
     const pictureFromCamera = async () => {
         const photos = await CameraAdapter.takePicture();
-        if(photos.length){
+        if (photos.length) {
             onAction(photos[0]);
             onClose();
         }
@@ -23,14 +23,14 @@ export const OptionsModal = ({ isVisible, onAction , onClose }: Props) => {
 
     const pictureFromGallery = async () => {
         const photos = await CameraAdapter.getPicturesFromLibrary();
-        if(photos.length){
+        if (photos.length) {
             onAction(photos[0]);
             onClose();
         }
     }
-    
 
-    return(
+
+    return (
         <Modal visible={isVisible} animationType="fade" transparent={true}>
             <View style={style.modalContent}>
                 <View style={style.titleContainer}>
@@ -41,18 +41,18 @@ export const OptionsModal = ({ isVisible, onAction , onClose }: Props) => {
                 </View>
 
                 <View style={style.body}>
-                    <ButtonIcon 
-                        icon="camera-outline" 
-                        iconColor="purple" 
+                    <ButtonIcon
+                        icon="camera-outline"
+                        iconColor="purple"
                         description="Camera"
-                        onClick={pictureFromCamera} 
+                        onClick={pictureFromCamera}
                     />
 
-                    <ButtonIcon 
-                        icon="image-outline" 
-                        iconColor="green" 
+                    <ButtonIcon
+                        icon="image-outline"
+                        iconColor="green"
                         description="Gallery"
-                        onClick={pictureFromGallery} 
+                        onClick={pictureFromGallery}
                     />
                 </View>
             </View>
