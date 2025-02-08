@@ -22,36 +22,36 @@ export const Header = () => {
             toValue,
             callback: () => toValue < 0 && setModalIsVisible(false)
         })
-        }
-  return (
-    <View style={style.container}>
-        <View style={style.textContainer}>
-            <Text style={{fontSize: 14}}>Hello {user?.name},</Text>
-            <Text variant="displaySmall" style={{fontWeight: '900'}}>In-Touch IO</Text>
+    }
+    return (
+        <View style={style.container}>
+            <View style={style.textContainer}>
+                <Text style={{ fontSize: 14 }}>Hello {user?.name},</Text>
+                <Text variant="displaySmall" style={{ fontWeight: '900' }}>In-Touch IO</Text>
+            </View>
+
+            <Pressable style={style.imageContainer} onPress={() => resizeBox(0, -150)}>
+                <Image
+                    source={{
+                        uri: user?.pictureUrl
+                    }}
+                    style={[
+                        {
+                            width: 55,
+                            height: 55,
+                            borderRadius: 50
+                        }
+                    ]}
+
+                />
+
+                <CustomIcon size={25} iconName="ellipsis-vertical" />
+
+            </Pressable>
+
+            <ModalTopAnimation scale={animatedTop} isVisible={isModalVisible} onPress={resizeBox}></ModalTopAnimation>
         </View>
-
-        <Pressable style = {style.imageContainer} onPress={() => resizeBox(0, -150)}>
-            <Image 
-                source={{
-                    uri: user?.pictureUrl
-                }}
-                style = {[
-                    {
-                    width: 55,
-                    height: 55,
-                    borderRadius: 50
-                    }
-                ]}
-                
-            />
-   
-            <CustomIcon size={25} iconName="ellipsis-vertical" />
-
-        </Pressable>
-
-        <ModalTopAnimation scale={animatedTop} isVisible={isModalVisible} onPress={resizeBox}></ModalTopAnimation>
-    </View>
-  )
+    )
 }
 
 const style = StyleSheet.create({
