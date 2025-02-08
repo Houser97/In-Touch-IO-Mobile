@@ -94,7 +94,9 @@ const style = StyleSheet.create({
         alignItems: 'center',
         paddingInline: 10,
         paddingBlock: 12,
-        gap: 10
+        gap: 10,
+        borderBottomColor: '#D7D7D7',
+        borderBottomWidth: 1
     },
     contentContainer: {
         display: 'flex',
