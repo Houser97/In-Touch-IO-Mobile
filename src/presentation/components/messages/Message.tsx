@@ -1,73 +1,79 @@
-import { Image, StyleSheet, View } from "react-native"
-import { Text } from "react-native-paper"
+import { useState } from "react";
+import { Image, ImageLoadEventData, NativeSyntheticEvent, StyleSheet, View } from "react-native";
+import { Text } from "react-native-paper";
 
-export const Message = ({ hour = '', owner = false, content = '', image = '' }) => {
+export const Message = ({ hour = "", owner = false, content = "", image = "" }) => {
+    const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
+
+    const handleImageLoad = (event: NativeSyntheticEvent<ImageLoadEventData>) => {
+        const { width, height } = event.nativeEvent.source;
+        const maxWidth = 320;
+        const scaleFactor = maxWidth / width;
+        setImageSize({
+            width: maxWidth,
+            height: height * scaleFactor,
+        });
+    };
+
     return (
-    <View style={{flex: 1, display: 'flex', flexDirection: 'column', position: 'relative'}}>
-        <View style={[
-            style.global,
-            owner ? style.owner : style.friend,
-            ]}>
-        {image.length > 0 && <Image source={{uri: image}} style={style.image} />}
-        {content.length > 0 &&         
-            <Text
-                style={[
-                    owner ? style.textOwner : style.textFriend,
-                ]}
-            >
-                {content}
-            </Text>
-        }
-
-        <Text
-            style={[
-                style.hour,
-                owner ? style.textOwner : style.textFriend,
-            ]}
-        >{hour}</Text>
+        <View style={{ flex: 1, flexDirection: "column", position: "relative" }}>
+            <View style={[style.global, owner ? style.owner : style.friend]}>
+                {image.length > 0 && (
+                    <Image
+                        source={{ uri: image }}
+                        style={[style.image, imageSize]}
+                        resizeMode="contain"
+                        onLoad={handleImageLoad}
+                    />
+                )}
+                {content.length > 0 && (
+                    <Text style={[owner ? style.textOwner : style.textFriend]}>
+                        {content}
+                    </Text>
+                )}
+                <Text style={[style.hour, owner ? style.textOwner : style.textFriend]}>
+                    {hour}
+                </Text>
+            </View>
         </View>
-    </View>
-  )
-}
+    );
+};
 
 const style = StyleSheet.create({
     global: {
         borderRadius: 10,
-        position: 'relative',
-        marginBlock: 4,
-        maxWidth: '75%',
+        marginVertical: 4,
+        maxWidth: "75%",
         minWidth: 150,
         paddingBottom: 30,
-        alignSelf: 'flex-start',
-        alignItems: 'baseline',
-        padding: 10
+        alignSelf: "flex-start",
+        alignItems: "baseline",
+        padding: 10,
     },
     owner: {
         right: 10,
-        alignSelf: 'flex-end',
+        alignSelf: "flex-end",
         backgroundColor: "#663399",
-        justifyContent: 'center'
+        justifyContent: "center",
     },
     friend: {
         left: 10,
-        alignSelf: 'flex-start',
-        backgroundColor: "#D3D3D3"
+        alignSelf: "flex-start",
+        backgroundColor: "#D3D3D3",
     },
     textOwner: {
-        color: 'white'
+        color: "white",
     },
     textFriend: {
-        color: 'black'
+        color: "black",
     },
     hour: {
-        position: 'absolute',
+        position: "absolute",
         bottom: 5,
-        right: 10
+        right: 10,
     },
     image: {
-        width: '100%',
+        width: "100%", // Esto se ajustará dinámicamente
         height: undefined,
-        aspectRatio: 135 / 76
-    }
-    
-})
+    },
+});
