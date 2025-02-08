@@ -30,7 +30,7 @@ const style = StyleSheet.create({
         flexDirection: 'row', 
         alignItems: 'center',
         gap: 10,
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
     },
     text: {
         fontWeight: '600'
