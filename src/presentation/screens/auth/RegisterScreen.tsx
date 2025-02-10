@@ -8,7 +8,7 @@ import { RootStackParams } from "../../navigator/StackNavigator";
 
 export const RegisterScreen = () => {
 
-    const { register } = useAuthStore();
+    const { errorMessage, register } = useAuthStore();
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
@@ -24,16 +24,18 @@ export const RegisterScreen = () => {
     const onRegister = async() => {
         if(!passwordsMatch){
             Alert.alert('Error', 'Passwords must be identical');
+            return;
         }
 
         if(form.email.length === 0 || form.password.length === 0 || form.repeatPassword.length === 0 || form.username.length === 0) {
+            Alert.alert('Error', 'Fill all fields');
             return;
         }
         
         const isLogged = await register(form.email, form.password, form.username);
         if(isLogged) return;
 
-        Alert.alert('Error', 'Email or password incorrect');
+        Alert.alert('Error', errorMessage);
     };
 
   return (
