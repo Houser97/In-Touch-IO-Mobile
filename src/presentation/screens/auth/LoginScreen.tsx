@@ -8,7 +8,7 @@ import { RootStackParams } from "../../navigator/StackNavigator";
 
 export const LoginScreen = () => {
 
-    const { errorMessage, login } = useAuthStore();
+    const { errorMessage, login, clearErrorMessage } = useAuthStore();
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
@@ -82,7 +82,10 @@ export const LoginScreen = () => {
 
                 <View style={style.register}>
                     <Text>Don't have an account yet?</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('RegisterScreen')}>
+                    <TouchableOpacity onPress={() => {
+                        clearErrorMessage();
+                        navigation.navigate('RegisterScreen')
+                    }}>
                         <Text style={{fontWeight: 'bold'}}>
                             Sign up
                         </Text>

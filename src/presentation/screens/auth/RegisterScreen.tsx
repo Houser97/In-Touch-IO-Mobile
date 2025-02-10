@@ -8,7 +8,7 @@ import { RootStackParams } from "../../navigator/StackNavigator";
 
 export const RegisterScreen = () => {
 
-    const { errorMessage, register } = useAuthStore();
+    const { errorMessage, register, clearErrorMessage } = useAuthStore();
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
@@ -111,7 +111,10 @@ export const RegisterScreen = () => {
 
                 <View style={style.register}>
                     <Text>Already have an account?</Text>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <TouchableOpacity onPress={() => {
+                        clearErrorMessage();
+                        navigation.goBack()
+                    }}>
                         <Text style={{fontWeight: 'bold'}}>
                             Sign in
                         </Text>
