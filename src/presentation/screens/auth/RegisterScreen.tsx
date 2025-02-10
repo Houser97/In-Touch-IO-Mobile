@@ -19,14 +19,14 @@ export const RegisterScreen = () => {
         username: '',
     });
 
-    const [passwordsMatch, setPasswordMatch] = useState(false);
+    const [passwordsMatch, setPasswordMatch] = useState(true);
 
     const onRegister = async() => {
         if(!passwordsMatch){
             Alert.alert('Error', 'Passwords must be identical');
         }
 
-        if(form.email.length === 0 || form.password.length === 0 || form.username.length === 0) {
+        if(form.email.length === 0 || form.password.length === 0 || form.repeatPassword.length === 0 || form.username.length === 0) {
             return;
         }
         
