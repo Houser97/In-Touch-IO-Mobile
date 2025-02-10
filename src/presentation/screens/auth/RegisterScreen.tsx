@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, StyleSheet, TouchableOpacity, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import { Button, Text, TextInput } from "react-native-paper"
@@ -21,6 +21,12 @@ export const RegisterScreen = () => {
 
     const [passwordsMatch, setPasswordMatch] = useState(true);
 
+    useEffect(()=> {
+        if(errorMessage.length > 0) {
+            Alert.alert('Error', errorMessage);
+        }
+    }, [errorMessage])
+
     const onRegister = async() => {
         if(!passwordsMatch){
             Alert.alert('Error', 'Passwords must be identical');
@@ -34,8 +40,6 @@ export const RegisterScreen = () => {
         
         const isLogged = await register(form.email, form.password, form.username);
         if(isLogged) return;
-
-        Alert.alert('Error', errorMessage);
     };
 
   return (

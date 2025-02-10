@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, StyleSheet, TouchableOpacity, View } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import { Button, Text, TextInput } from "react-native-paper"
@@ -8,7 +8,7 @@ import { RootStackParams } from "../../navigator/StackNavigator";
 
 export const LoginScreen = () => {
 
-    const { login } = useAuthStore();
+    const { errorMessage, login } = useAuthStore();
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
@@ -16,6 +16,12 @@ export const LoginScreen = () => {
         email: '',
         password: ''
     })
+
+    useEffect(()=> {
+        if(errorMessage.length > 0) {
+            Alert.alert('Error', errorMessage);
+        }
+    }, [errorMessage])
 
     const onLogin = async() => {
         if(form.email.length === 0 || form.password.length === 0) {
@@ -25,7 +31,7 @@ export const LoginScreen = () => {
        const isLogged = await login(form.email, form.password);
         if(isLogged) return;
 
-        Alert.alert('Error', 'Email or password incorrect');
+        
     };
 
   return (
@@ -52,14 +58,14 @@ export const LoginScreen = () => {
                 />
 
                 <TextInput 
-                        label="Password"
-                        value={form.password}
-                        secureTextEntry={true}
-                        style={style.textInput}
-                        mode="outlined"
-                        outlineStyle={style.textInput}
-                        outlineColor="black"
-                        onChangeText={text => setForm({...form, password: text})}
+                    label="Password"
+                    value={form.password}
+                    secureTextEntry={true}
+                    style={style.textInput}
+                    mode="outlined"
+                    outlineStyle={style.textInput}
+                    outlineColor="black"
+                    onChangeText={text => setForm({...form, password: text})}
                 />
 
 
