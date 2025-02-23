@@ -20,26 +20,26 @@ interface Props {
 
 const PhotoMessage = () => {
     return (
-        <View style={{flexDirection: 'row', gap: 3}}>
-            <CustomIcon iconName="image" size={18} style={{color: 'gray', paddingInline: 1}}></CustomIcon>
+        <View style={{ flexDirection: 'row', gap: 3 }}>
+            <CustomIcon iconName="image" size={18} style={{ color: 'gray', paddingInline: 1 }}></CustomIcon>
             <Text ellipsizeMode="tail" numberOfLines={1}>Photo</Text>
         </View>
     )
 }
-  
+
 export const ChatCard = ({ picture, name, chatId, lastMessage, unseen, hour, senderId }: Props) => {
-    
+
     const { selectChat, clearUnseenMessages } = useChatStore();
-    const { getMessages,  clearMessages, updateMessagesStatus } = useMessageStore();
+    const { getMessages, clearMessages, updateMessagesStatus } = useMessageStore();
     const { joinChat } = useContext(SocketContext);
 
     const navigation = useNavigation<NavigationProp<RootStackParams>>();
 
     const isImage = (lastMessage as string).includes('https');
 
-    const lastMessageFormatted = lastMessage !== 'empty' 
-    ? lastMessage 
-    : ''
+    const lastMessageFormatted = lastMessage !== 'empty'
+        ? lastMessage
+        : ''
 
     const navigate = () => {
         clearMessages();
@@ -53,38 +53,38 @@ export const ChatCard = ({ picture, name, chatId, lastMessage, unseen, hour, sen
 
     return (
         <Pressable
-            style={{flex: 1}}
+            style={{ flex: 1 }}
             onPress={navigate}
         >
             <View style={style.container}>
-                    <Image 
-                        source={{uri: picture}}
-                        style={[
-                            {
-                                width: 50,
-                                height: 50,
-                                borderRadius: 50
-                            }
-                        ]}
-                    />
-                    <View style={{flex: 1}}>
-                        <View style={style.contentContainer}>
-                            <Text style={{fontWeight: '700', fontSize: 16}}>{name}</Text>
-                            {isImage 
-                                ? <PhotoMessage />
-                                : <Text ellipsizeMode="tail" numberOfLines={1}>{lastMessageFormatted}</Text>
-                            }
-                            
-                        </View>
+                <Image
+                    source={{ uri: picture }}
+                    style={[
+                        {
+                            width: 50,
+                            height: 50,
+                            borderRadius: 50
+                        }
+                    ]}
+                />
+                <View style={{ flex: 1 }}>
+                    <View style={style.contentContainer}>
+                        <Text style={{ fontWeight: '700', fontSize: 16 }}>{name}</Text>
+                        {isImage
+                            ? <PhotoMessage />
+                            : <Text ellipsizeMode="tail" numberOfLines={1}>{lastMessageFormatted}</Text>
+                        }
+
                     </View>
-                    <View style={[style.contentContainer, {justifyContent: 'flex-end'}]}>
-                        <Text>{hour}</Text>
-                        {unseen.length > 0 && <Text style={style.unseenMessages}>{unseen.length}</Text>}
-                    </View>
+                </View>
+                <View style={[style.contentContainer, { justifyContent: 'flex-end' }]}>
+                    <Text>{hour}</Text>
+                    {unseen.length > 0 && <Text style={style.unseenMessages}>{unseen.length}</Text>}
+                </View>
             </View>
         </Pressable>
     )
-  }
+}
 
 const style = StyleSheet.create({
     container: {
